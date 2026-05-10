@@ -7,97 +7,143 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0f;
-      --surface: #111118;
-      --surface2: #18181f;
-      --border: rgba(255,255,255,0.07);
-      --accent: #7c6afc;
-      --accent2: #a78bfa;
-      --text: #f0f0f8;
-      --muted: #8888a8;
-      --green: #34d399;
-      --orange: #fb923c;
-      --red: #f87171;
-      --radius: 16px;
+      --bg: #080808;
+      --surface: #111111;
+      --surface2: #161616;
+      --border: rgba(255,255,255,0.08);
+      --border-strong: rgba(255,255,255,0.12);
+      --text: #ededed;
+      --text-2: #a1a1a1;
+      --text-3: #666666;
+      --white: #ffffff;
+      --green: #3ecf8e;
+      --orange: #f97316;
+      --red: #ef4444;
+      --radius-sm: 6px;
+      --radius: 12px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+      font-family: "Geist", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
+    /* ── dot grid background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    * { position: relative; z-index: 1; }
+
     /* ── Nav ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
+      z-index: 200;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-      background: rgba(10,10,15,0.8);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      padding: 0 32px;
+      height: 60px;
+      background: rgba(8,8,8,0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 17px;
+      gap: 8px;
+      font-size: 15px;
       font-weight: 600;
-      letter-spacing: -0.3px;
-      color: var(--text);
+      color: var(--white);
       text-decoration: none;
+      letter-spacing: -0.2px;
     }
 
-    .nav-logo .logo-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent), #4f46e5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
+    .nav-logo img {
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--muted);
+      color: var(--text-2);
       text-decoration: none;
       font-size: 14px;
+      font-weight: 400;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: transparent;
+      color: var(--text-2);
+      font-size: 13px;
       font-weight: 500;
-      transition: color 0.2s;
+      text-decoration: none;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: var(--white); }
 
-    .nav-cta {
-      background: var(--accent);
-      color: #fff !important;
-      padding: 8px 18px;
-      border-radius: 8px;
-      transition: opacity 0.2s !important;
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: #000;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      font-family: inherit;
+      transition: opacity 0.15s;
     }
-    .nav-cta:hover { opacity: 0.85; }
+
+    .btn-white:hover { opacity: 0.88; }
 
     /* ── Hero ── */
     .hero {
@@ -107,411 +153,437 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 24px 80px;
-      position: relative;
+      padding: 100px 24px 80px;
       overflow: hidden;
     }
 
-    .hero::before {
+    /* Beam */
+    .hero::after {
       content: '';
       position: absolute;
-      top: -200px; left: 50%;
+      top: -40px;
+      left: 50%;
       transform: translateX(-50%);
-      width: 900px; height: 600px;
-      background: radial-gradient(ellipse at center, rgba(124,106,252,0.18) 0%, transparent 70%);
+      width: 1px;
+      height: 340px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.55), transparent);
+      pointer-events: none;
+    }
+
+    .hero-beam {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.07) 0%, transparent 100%);
       pointer-events: none;
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
+      gap: 7px;
+      padding: 5px 12px 5px 8px;
       border-radius: 100px;
-      border: 1px solid rgba(124,106,252,0.4);
-      background: rgba(124,106,252,0.1);
-      color: var(--accent2);
-      font-size: 13px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255,255,255,0.04);
+      color: var(--text-2);
+      font-size: 12px;
       font-weight: 500;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      letter-spacing: 0.1px;
     }
 
-    .hero-badge::before {
-      content: '';
-      width: 6px; height: 6px;
+    .badge-dot {
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      background: var(--accent2);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
     }
 
     h1 {
-      font-size: clamp(44px, 7vw, 76px);
+      font-size: clamp(40px, 6.5vw, 72px);
       font-weight: 700;
-      letter-spacing: -2px;
-      line-height: 1.05;
-      margin-bottom: 24px;
-      max-width: 820px;
+      letter-spacing: -2.5px;
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 20px;
+      max-width: 760px;
     }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #fff 0%, var(--accent2) 60%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    h1 .dim { color: var(--text-3); font-weight: 600; }
 
     .hero-sub {
-      font-size: clamp(17px, 2.5vw, 21px);
-      color: var(--muted);
-      max-width: 520px;
-      line-height: 1.6;
-      margin-bottom: 44px;
+      font-size: 16px;
+      color: var(--text-2);
+      max-width: 440px;
+      line-height: 1.65;
+      margin-bottom: 40px;
+      font-weight: 400;
     }
 
     .hero-actions {
       display: flex;
-      gap: 14px;
+      gap: 10px;
       align-items: center;
-      flex-wrap: wrap;
       justify-content: center;
     }
 
-    .btn-primary {
+    .btn-primary-lg {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: 12px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 16px;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: #000;
+      font-size: 14px;
       font-weight: 600;
       text-decoration: none;
-      transition: opacity 0.2s, transform 0.15s;
+      font-family: inherit;
+      transition: opacity 0.15s;
+      letter-spacing: -0.1px;
     }
 
-    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary-lg:hover { opacity: 0.88; }
 
-    .btn-secondary {
+    .btn-ghost-lg {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      font-size: 16px;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: transparent;
+      color: var(--text-2);
+      font-size: 14px;
       font-weight: 500;
       text-decoration: none;
-      transition: border-color 0.2s, transform 0.15s;
+      font-family: inherit;
+      transition: border-color 0.15s, color 0.15s;
     }
 
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .btn-ghost-lg:hover { border-color: rgba(255,255,255,0.25); color: var(--white); }
 
     .hero-meta {
-      margin-top: 20px;
-      font-size: 13px;
-      color: var(--muted);
+      margin-top: 28px;
+      font-size: 12px;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
+      letter-spacing: 0.2px;
     }
 
-    /* ── App preview (mock menu bar + window) ── */
-    .preview-section {
-      padding: 0 24px 100px;
+    /* ── App preview ── */
+    .preview-wrap {
+      padding: 0 24px 120px;
       display: flex;
       justify-content: center;
     }
 
-    .app-mockup {
+    .app-window {
       width: 100%;
-      max-width: 760px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
+      max-width: 740px;
+      border-radius: 10px;
+      border: 1px solid var(--border-strong);
       background: var(--surface);
       overflow: hidden;
-      box-shadow: 0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+      box-shadow:
+        0 0 0 1px var(--border),
+        0 40px 80px rgba(0,0,0,0.7),
+        0 0 120px rgba(255,255,255,0.02);
     }
 
-    .mockup-titlebar {
+    .window-bar {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 14px 18px;
+      gap: 7px;
+      padding: 12px 16px;
       border-bottom: 1px solid var(--border);
       background: var(--surface2);
     }
 
-    .traffic-light {
-      width: 12px; height: 12px;
-      border-radius: 50%;
-    }
-    .tl-red { background: #ff5f57; }
-    .tl-yellow { background: #febc2e; }
-    .tl-green { background: #28c840; }
+    .tl { width: 11px; height: 11px; border-radius: 50%; }
+    .tl-r { background: #ff5f57; }
+    .tl-y { background: #febc2e; }
+    .tl-g { background: #28c840; }
 
-    .mockup-title {
+    .window-title {
       flex: 1;
       text-align: center;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
+      font-size: 12px;
+      color: var(--text-3);
       margin-left: -52px;
+      font-family: "Geist Mono", monospace;
     }
 
-    .mockup-body {
-      padding: 0;
-      display: flex;
-    }
+    .window-body { display: flex; }
 
     /* Sidebar */
-    .mockup-sidebar {
-      width: 180px;
+    .sidebar {
+      width: 168px;
       border-right: 1px solid var(--border);
-      padding: 16px 10px;
+      padding: 12px 8px;
       flex-shrink: 0;
     }
 
-    .sidebar-item {
+    .sidebar-group {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-3);
+      padding: 6px 10px 4px;
+      font-family: "Geist Mono", monospace;
+    }
+
+    .sidebar-row {
       display: flex;
       align-items: center;
-      gap: 9px;
-      padding: 8px 10px;
-      border-radius: 8px;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 2px;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      color: var(--text-2);
+      margin-bottom: 1px;
+      cursor: default;
     }
 
-    .sidebar-item.active {
-      background: rgba(124,106,252,0.15);
-      color: var(--accent2);
+    .sidebar-row.active {
+      background: rgba(255,255,255,0.06);
+      color: var(--white);
     }
 
-    .sidebar-icon {
-      font-size: 14px;
-      width: 16px;
-      text-align: center;
-    }
+    .sidebar-icon { font-size: 12px; opacity: 0.7; }
 
-    /* Main content */
-    .mockup-content {
+    /* Content */
+    .content {
       flex: 1;
-      padding: 20px 22px;
+      padding: 18px 20px;
       min-width: 0;
     }
 
-    .mockup-header {
+    .content-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
-    .mockup-page-title {
-      font-size: 17px;
+    .content-title {
+      font-size: 15px;
       font-weight: 600;
+      letter-spacing: -0.3px;
     }
 
-    .mockup-toolbar {
-      display: flex;
-      gap: 6px;
-    }
+    .pill-row { display: flex; gap: 4px; }
 
-    .toggle-pill {
-      padding: 4px 10px;
-      border-radius: 6px;
+    .pill {
+      padding: 3px 9px;
+      border-radius: 100px;
       font-size: 11px;
       font-weight: 500;
-      background: rgba(255,255,255,0.07);
-      color: var(--muted);
+      border: 1px solid var(--border);
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
     }
 
-    .toggle-pill.active {
-      background: rgba(124,106,252,0.25);
-      color: var(--accent2);
+    .pill.on {
+      border-color: rgba(255,255,255,0.15);
+      color: var(--text-2);
+      background: rgba(255,255,255,0.04);
     }
 
-    /* Gauge cards */
-    .gauge-row {
+    /* Stat cards */
+    .stat-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    .gauge-card {
-      background: var(--surface2);
+    .stat-card {
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 14px;
+      background: var(--surface2);
     }
 
-    .gauge-label {
+    .stat-label {
       font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
+      margin-bottom: 10px;
+      letter-spacing: 0.2px;
     }
 
-    .gauge-pct {
-      font-size: 28px;
+    .stat-value {
+      font-size: 30px;
       font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 8px;
+      letter-spacing: -1.5px;
+      line-height: 1;
+      margin-bottom: 10px;
+      font-family: "Geist Mono", monospace;
     }
 
-    .pct-green { color: var(--green); }
-    .pct-orange { color: var(--orange); }
-    .pct-red { color: var(--red); }
+    .val-green { color: var(--green); }
+    .val-orange { color: var(--orange); }
+    .val-red { color: var(--red); }
 
-    .progress-track {
-      height: 5px;
-      background: rgba(255,255,255,0.07);
+    .track {
+      height: 3px;
+      background: rgba(255,255,255,0.06);
       border-radius: 100px;
       overflow: hidden;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
-    .progress-fill {
+    .track-fill {
       height: 100%;
       border-radius: 100px;
-      transition: width 1s ease;
     }
 
     .fill-green { background: var(--green); }
     .fill-orange { background: var(--orange); }
     .fill-red { background: var(--red); }
 
-    .gauge-reset {
+    .stat-sub {
       font-size: 10px;
-      color: var(--muted);
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
     }
 
-    /* Activity chart mock */
+    /* Chart mock */
     .chart-card {
-      background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 8px;
       padding: 14px;
+      background: var(--surface2);
     }
 
-    .chart-header {
+    .chart-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       margin-bottom: 12px;
     }
 
-    .chart-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
+    .chart-label {
+      font-size: 11px;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
+      letter-spacing: 0.2px;
     }
 
     .chart-area {
-      height: 80px;
+      height: 72px;
       position: relative;
-      overflow: hidden;
     }
 
-    .chart-dots {
-      position: absolute;
-      inset: 0;
+    .chart-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
     }
 
-    .dot {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    /* SVG trend line placeholder */
-    .trend-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-
-    /* ── Features ── */
-    section {
+    /* ── Section ── */
+    .section {
       padding: 100px 24px;
-    }
-
-    .section-label {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--accent2);
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      text-align: center;
-      color: var(--muted);
-      font-size: 17px;
-      max-width: 480px;
-      margin: 0 auto 64px;
-      line-height: 1.6;
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
-    .feature-card {
-      background: var(--surface);
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+
+    h2 .dim { color: var(--text-3); }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-2);
+      max-width: 460px;
+      line-height: 1.65;
+      margin-bottom: 56px;
+    }
+
+    /* Feature grid */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px;
-      transition: border-color 0.2s, transform 0.2s;
+      overflow: hidden;
     }
 
-    .feature-card:hover {
-      border-color: rgba(124,106,252,0.3);
-      transform: translateY(-2px);
+    .feat-cell {
+      padding: 28px 26px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
     }
 
-    .feature-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: rgba(124,106,252,0.15);
+    .feat-cell:hover { background: rgba(255,255,255,0.02); }
+
+    .feat-cell:nth-child(3n) { border-right: none; }
+    .feat-cell:nth-child(n+4) { border-bottom: none; }
+
+    .feat-icon {
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      margin-bottom: 16px;
-    }
-
-    .feature-title {
       font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--surface2);
     }
 
-    .feature-desc {
+    .feat-title {
       font-size: 14px;
-      color: var(--muted);
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+      letter-spacing: -0.2px;
+    }
+
+    .feat-desc {
+      font-size: 13px;
+      color: var(--text-2);
       line-height: 1.6;
     }
 
     /* ── Widget section ── */
     .widget-section {
-      background: var(--surface);
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
+      padding: 100px 24px;
     }
 
     .widget-inner {
@@ -519,206 +591,218 @@
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px;
+      gap: 80px;
       align-items: center;
     }
 
-    .widget-text h2 {
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-    }
-
-    .widget-text p {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-
-    .widget-previews {
+    .widget-stack {
       display: flex;
       flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Medium widget */
+    .w-med {
+      width: 100%;
+      max-width: 320px;
+      height: 152px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 18px;
+      padding: 16px 18px;
+      display: flex;
       gap: 14px;
-      align-items: flex-start;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
     }
 
-    /* Small widget mock */
-    .widget-small {
-      width: 160px;
-      height: 160px;
-      background: rgba(17,17,24,0.9);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 18px;
+    .w-left {
       display: flex;
       flex-direction: column;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      justify-content: space-between;
+      min-width: 72px;
     }
 
-    .widget-header-row {
+    .w-app {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--white);
       display: flex;
       align-items: center;
       gap: 5px;
-      margin-bottom: auto;
     }
 
-    .widget-app-name {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text);
+    .w-app img { width: 14px; height: 14px; border-radius: 3px; }
+
+    .w-ts {
+      font-size: 9px;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
     }
 
-    .widget-icon {
-      font-size: 10px;
-      color: #7c6afc;
-    }
-
-    .widget-bars {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .wbar-label-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-
-    .wbar-label { font-size: 9px; color: var(--muted); }
-    .wbar-pct { font-size: 9px; font-weight: 700; }
-
-    .wbar-track {
-      height: 4px;
-      background: rgba(255,255,255,0.07);
-      border-radius: 100px;
-      overflow: hidden;
-    }
-
-    .wbar-fill {
-      height: 100%;
-      border-radius: 100px;
-    }
-
-    .widget-updated {
-      font-size: 8px;
-      color: var(--muted);
-    }
-
-    /* Medium widget mock */
-    .widget-medium {
-      width: 340px;
-      height: 160px;
-      background: rgba(17,17,24,0.9);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 18px 20px;
-      display: flex;
-      gap: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    }
-
-    .wmed-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-width: 80px;
-    }
-
-    .wmed-divider {
+    .w-div {
       width: 1px;
       background: var(--border);
-      margin: 0 4px;
+      flex-shrink: 0;
     }
 
-    .wmed-metric {
+    .w-metric {
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
-    .wmed-mlabel { font-size: 9px; color: var(--muted); }
+    .wm-label {
+      font-size: 9px;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-    .wmed-mpct {
-      font-size: 28px;
+    .wm-val {
+      font-size: 26px;
       font-weight: 700;
       letter-spacing: -1px;
       line-height: 1;
+      font-family: "Geist Mono", monospace;
     }
 
-    .wmed-mtrack {
+    .wm-track {
       height: 3px;
-      background: rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.06);
       border-radius: 100px;
       overflow: hidden;
       margin: 2px 0;
     }
 
-    .wmed-mfill { height: 100%; border-radius: 100px; }
+    .wm-fill { height: 100%; border-radius: 100px; }
 
-    .wmed-mreset { font-size: 8px; color: var(--muted); }
+    .wm-reset {
+      font-size: 8px;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
+    }
+
+    /* Small widget */
+    .w-sm {
+      width: 152px;
+      height: 152px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    }
+
+    .ws-bars { display: flex; flex-direction: column; gap: 10px; margin: auto 0; }
+
+    .ws-bar-label { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .ws-lbl { font-size: 9px; color: var(--text-3); font-family: "Geist Mono", monospace; }
+    .ws-pct { font-size: 9px; font-weight: 700; font-family: "Geist Mono", monospace; }
+
+    .ws-track { height: 3px; background: rgba(255,255,255,0.06); border-radius: 100px; overflow: hidden; }
+    .ws-fill { height: 100%; border-radius: 100px; }
+
+    .ws-ts { font-size: 8px; color: var(--text-3); font-family: "Geist Mono", monospace; margin-top: 8px; }
 
     /* ── CTA ── */
-    .cta-section {
+    .cta-wrap {
       padding: 120px 24px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .cta-section::before {
+    .cta-wrap::before {
       content: '';
       position: absolute;
-      bottom: -100px; left: 50%;
+      top: 0; left: 50%;
       transform: translateX(-50%);
-      width: 700px; height: 400px;
-      background: radial-gradient(ellipse at center, rgba(124,106,252,0.15) 0%, transparent 70%);
+      width: 1px;
+      height: 200px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4), transparent);
+    }
+
+    .cta-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 280px;
+      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 100%);
       pointer-events: none;
     }
 
-    .cta-section h2 {
+    .cta-wrap h2 {
       font-size: clamp(32px, 5vw, 56px);
-      font-weight: 700;
-      letter-spacing: -1.5px;
-      margin-bottom: 20px;
+      letter-spacing: -2px;
     }
 
-    .cta-section p {
-      color: var(--muted);
-      font-size: 18px;
-      margin-bottom: 40px;
+    .cta-wrap p {
+      color: var(--text-2);
+      font-size: 15px;
+      margin: 14px 0 36px;
     }
 
     /* ── Footer ── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 40px 48px;
+      padding: 28px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--muted);
-      font-size: 13px;
     }
 
-    footer a { color: var(--muted); text-decoration: none; }
-    footer a:hover { color: var(--text); }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-3);
+    }
+
+    .footer-left img { width: 18px; height: 18px; border-radius: 4px; }
 
     .footer-links {
       display: flex;
       gap: 24px;
+      list-style: none;
     }
 
-    @media (max-width: 700px) {
-      nav { padding: 0 20px; }
+    .footer-links a {
+      color: var(--text-3);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--text-2); }
+
+    .footer-right {
+      font-size: 12px;
+      color: var(--text-3);
+      font-family: "Geist Mono", monospace;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 720px) {
+      nav { padding: 0 16px; }
       .nav-links { display: none; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
+      .feat-cell:nth-child(2n) { border-right: none; }
+      .feat-cell:nth-child(3n) { border-right: 1px solid var(--border); }
       .widget-inner { grid-template-columns: 1fr; gap: 40px; }
-      .widget-medium { width: 100%; max-width: 340px; }
       footer { flex-direction: column; gap: 16px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+
+    @media (max-width: 520px) {
+      .feat-grid { grid-template-columns: 1fr; }
+      .feat-cell { border-right: none !important; }
     }
   </style>
 </head>
@@ -727,123 +811,121 @@
   <!-- Nav -->
   <nav>
     <a href="#" class="nav-logo">
-      <span class="logo-icon">⚡</span>
+      <img src="favicon-32.png" alt="ClaudeOps" />
       ClaudeOps
     </a>
     <ul class="nav-links">
       <li><a href="#features">Features</a></li>
       <li><a href="#widget">Widget</a></li>
-      <li><a href="#download" class="nav-cta">Download</a></li>
+      <li><a href="https://github.com" target="_blank">GitHub</a></li>
     </ul>
+    <div class="nav-right">
+      <a href="#download" class="btn-white">Download</a>
+    </div>
   </nav>
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero-badge">macOS Menu Bar App</div>
-    <h1><span class="gradient-text">Monitor your Claude usage.</span><br>Stay in control.</h1>
-    <p class="hero-sub">ClaudeOps lives in your menu bar and keeps a real-time eye on your Claude API limits — so you never hit a wall mid-flow.</p>
+    <div class="hero-beam" aria-hidden="true"></div>
+
+    <div class="hero-badge">
+      <span class="badge-dot">⌘</span>
+      macOS menu bar app
+    </div>
+
+    <h1>Monitor your Claude<br /><span class="dim">usage limits.</span></h1>
+
+    <p class="hero-sub">
+      ClaudeOps lives in your menu bar and tracks your Claude API limits in real time —
+      so you never hit a wall mid-session.
+    </p>
+
     <div class="hero-actions">
-      <a href="#download" class="btn-primary" id="download">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4.5 7L8 10.5 11.5 7M2 13h12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <a href="#download" class="btn-primary-lg" id="download">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4.5 7L8 10.5 11.5 7M2 13h12" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Download for Mac
       </a>
-      <a href="#features" class="btn-secondary">Learn more</a>
+      <a href="#features" class="btn-ghost-lg">Learn more</a>
     </div>
-    <p class="hero-meta">macOS 15+ &nbsp;·&nbsp; Free &nbsp;·&nbsp; No account required</p>
+
+    <p class="hero-meta">macOS 15+ &nbsp;·&nbsp; free &nbsp;·&nbsp; no account required</p>
   </section>
 
   <!-- App preview -->
-  <div class="preview-section">
-    <div class="app-mockup">
-      <div class="mockup-titlebar">
-        <div class="traffic-light tl-red"></div>
-        <div class="traffic-light tl-yellow"></div>
-        <div class="traffic-light tl-green"></div>
-        <span class="mockup-title">ClaudeOps</span>
+  <div class="preview-wrap">
+    <div class="app-window">
+      <div class="window-bar">
+        <div class="tl tl-r"></div>
+        <div class="tl tl-y"></div>
+        <div class="tl tl-g"></div>
+        <span class="window-title">ClaudeOps</span>
       </div>
-      <div class="mockup-body">
-        <!-- Sidebar -->
-        <div class="mockup-sidebar">
-          <div class="sidebar-item active">
+      <div class="window-body">
+        <div class="sidebar">
+          <div class="sidebar-group">Navigation</div>
+          <div class="sidebar-row active">
             <span class="sidebar-icon">⊡</span> Overview
           </div>
-          <div class="sidebar-item">
+          <div class="sidebar-row">
             <span class="sidebar-icon">◎</span> History
           </div>
-          <div class="sidebar-item">
+          <div class="sidebar-row">
             <span class="sidebar-icon">⚙</span> Settings
           </div>
         </div>
-
-        <!-- Content -->
-        <div class="mockup-content">
-          <div class="mockup-header">
-            <span class="mockup-page-title">Overview</span>
-            <div class="mockup-toolbar">
-              <span class="toggle-pill active">Chart</span>
-              <span class="toggle-pill active">Activity</span>
+        <div class="content">
+          <div class="content-header">
+            <span class="content-title">Overview</span>
+            <div class="pill-row">
+              <span class="pill on">Chart</span>
+              <span class="pill on">Activity</span>
             </div>
           </div>
 
-          <div class="gauge-row">
-            <!-- 5-Hour card -->
-            <div class="gauge-card">
-              <div class="gauge-label">
-                <span>5-Hour Usage</span>
-                <span style="color:var(--green)">●</span>
-              </div>
-              <div class="gauge-pct pct-green">38%</div>
-              <div class="progress-track">
-                <div class="progress-fill fill-green" style="width:38%"></div>
-              </div>
-              <div class="gauge-reset">Resets in 2h 14m</div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-label">5-hour usage</div>
+              <div class="stat-value val-green">38%</div>
+              <div class="track"><div class="track-fill fill-green" style="width:38%"></div></div>
+              <div class="stat-sub">resets in 2h 14m</div>
             </div>
-            <!-- 7-Day card -->
-            <div class="gauge-card">
-              <div class="gauge-label">
-                <span>7-Day Usage</span>
-                <span style="color:var(--orange)">●</span>
-              </div>
-              <div class="gauge-pct pct-orange">81%</div>
-              <div class="progress-track">
-                <div class="progress-fill fill-orange" style="width:81%"></div>
-              </div>
-              <div class="gauge-reset">Resets in 3d 7h</div>
+            <div class="stat-card">
+              <div class="stat-label">7-day usage</div>
+              <div class="stat-value val-orange">81%</div>
+              <div class="track"><div class="track-fill fill-orange" style="width:81%"></div></div>
+              <div class="stat-sub">resets in 3d 7h</div>
             </div>
           </div>
 
-          <!-- Activity chart -->
           <div class="chart-card">
-            <div class="chart-header">
-              <span class="chart-title">Activity</span>
-              <div class="mockup-toolbar">
-                <span class="toggle-pill">Day</span>
-                <span class="toggle-pill active">Week</span>
-                <span class="toggle-pill">Month</span>
-                <span class="toggle-pill">Year</span>
+            <div class="chart-row">
+              <span class="chart-label">activity</span>
+              <div class="pill-row">
+                <span class="pill">Day</span>
+                <span class="pill on">Week</span>
+                <span class="pill">Month</span>
+                <span class="pill">Year</span>
               </div>
             </div>
             <div class="chart-area">
-              <svg class="trend-svg" viewBox="0 0 600 80" preserveAspectRatio="none">
-                <!-- Dashed trend line -->
-                <path d="M20,55 C80,48 140,30 200,35 C260,40 320,20 380,25 C440,30 520,15 580,20"
-                      stroke="rgba(124,106,252,0.5)" stroke-width="1.5" stroke-dasharray="4 3"
+              <svg class="chart-svg" viewBox="0 0 580 72" preserveAspectRatio="none">
+                <path d="M10,50 C80,42 150,28 210,33 C270,38 330,18 390,23 C450,28 520,14 570,18"
+                      stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="3 3"
                       fill="none" stroke-linecap="round"/>
-                <!-- Activity dots -->
-                <circle cx="40"  cy="50" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="90"  cy="30" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="140" cy="60" r="3" fill="rgba(251,146,60,0.8)"/>
-                <circle cx="170" cy="20" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="200" cy="40" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="240" cy="15" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="280" cy="55" r="3" fill="rgba(248,113,113,0.8)"/>
-                <circle cx="310" cy="25" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="350" cy="35" r="3" fill="rgba(251,146,60,0.8)"/>
-                <circle cx="400" cy="10" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="440" cy="45" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="480" cy="20" r="3" fill="rgba(52,211,153,0.8)"/>
-                <circle cx="530" cy="30" r="3" fill="rgba(251,146,60,0.8)"/>
-                <circle cx="570" cy="18" r="3" fill="rgba(52,211,153,0.8)"/>
+                <circle cx="30"  cy="46" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="75"  cy="28" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="120" cy="56" r="2.5" fill="rgba(249,115,22,0.75)"/>
+                <circle cx="160" cy="18" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="195" cy="38" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="240" cy="12" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="275" cy="52" r="2.5" fill="rgba(239,68,68,0.75)"/>
+                <circle cx="310" cy="22" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="350" cy="34" r="2.5" fill="rgba(249,115,22,0.75)"/>
+                <circle cx="395" cy="8"  r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="435" cy="42" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="475" cy="18" r="2.5" fill="rgba(62,207,142,0.75)"/>
+                <circle cx="520" cy="28" r="2.5" fill="rgba(249,115,22,0.75)"/>
+                <circle cx="560" cy="16" r="2.5" fill="rgba(62,207,142,0.75)"/>
               </svg>
             </div>
           </div>
@@ -852,131 +934,139 @@
     </div>
   </div>
 
+  <hr class="divider" />
+
   <!-- Features -->
-  <section id="features">
-    <p class="section-label">Features</p>
-    <h2 class="section-title">Everything you need,<br>nothing you don't.</h2>
+  <div class="section" id="features">
+    <div class="section-eyebrow">Features</div>
+    <h2>Everything you need.<br /><span class="dim">Nothing you don't.</span></h2>
     <p class="section-sub">Lightweight by design. ClaudeOps stays out of your way until you need it.</p>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <div class="feature-title">Real-time usage gauges</div>
-        <p class="feature-desc">Track your 5-hour and 7-day utilization at a glance, with color-coded alerts as you approach limits.</p>
+
+    <div class="feat-grid">
+      <div class="feat-cell">
+        <div class="feat-icon">📊</div>
+        <div class="feat-title">Real-time gauges</div>
+        <p class="feat-desc">Track 5-hour and 7-day utilization with color-coded alerts as limits approach.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">📈</div>
-        <div class="feature-title">Activity timeline</div>
-        <p class="feature-desc">Visualize when you use Claude throughout the day and week. Spot patterns and plan your heaviest work accordingly.</p>
+      <div class="feat-cell">
+        <div class="feat-icon">📈</div>
+        <div class="feat-title">Activity timeline</div>
+        <p class="feat-desc">Visualize when you use Claude throughout the day, week, month, or year.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔔</div>
-        <div class="feature-title">Smart notifications</div>
-        <p class="feature-desc">Get alerted at custom thresholds — before you hit a wall, not after. Set it once and forget it.</p>
+      <div class="feat-cell">
+        <div class="feat-icon">🔔</div>
+        <div class="feat-title">Smart alerts</div>
+        <p class="feat-desc">Get notified at custom thresholds — before you hit a wall, not after.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">⌚</div>
-        <div class="feature-title">Reset countdowns</div>
-        <p class="feature-desc">Always know exactly when your limits reset. No more guessing or checking the API dashboard.</p>
+      <div class="feat-cell">
+        <div class="feat-icon">⌚</div>
+        <div class="feat-title">Reset countdowns</div>
+        <p class="feat-desc">Always know exactly when your limits reset. No more checking the dashboard.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔑</div>
-        <div class="feature-title">Claude Code integration</div>
-        <p class="feature-desc">Uses your existing Claude Code session automatically — no separate API key needed if you're already set up.</p>
+      <div class="feat-cell">
+        <div class="feat-icon">🔑</div>
+        <div class="feat-title">Claude Code integration</div>
+        <p class="feat-desc">Uses your existing Claude Code session — no separate API key required.</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <div class="feature-title">Private by default</div>
-        <p class="feature-desc">Your token is stored in the system keychain. No analytics, no telemetry, no data leaves your machine.</p>
+      <div class="feat-cell">
+        <div class="feat-icon">🔒</div>
+        <div class="feat-title">Private by default</div>
+        <p class="feat-desc">Token stored in the system keychain. No analytics, no telemetry.</p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Widget section -->
-  <section class="widget-section" id="widget">
+  <hr class="divider" />
+
+  <!-- Widget -->
+  <div class="widget-section" id="widget">
     <div class="widget-inner">
-      <div class="widget-text">
-        <p class="section-label" style="text-align:left; margin-bottom:12px;">macOS Widget</p>
-        <h2>Your usage,<br>on your desktop.</h2>
-        <p>Add the ClaudeOps widget to Notification Center or your desktop. Available in small and medium sizes — always current, always a glance away.</p>
-        <p>Data syncs instantly whenever the main app refreshes, so your widget is never stale.</p>
+      <div>
+        <div class="section-eyebrow">macOS Widget</div>
+        <h2>Your usage,<br /><span class="dim">on your desktop.</span></h2>
+        <p class="section-sub" style="margin-bottom:0">
+          Add ClaudeOps to Notification Center or your desktop in small or medium size.
+          Data syncs the moment the app refreshes — never stale.
+        </p>
       </div>
-      <div class="widget-previews">
-        <!-- Medium widget -->
-        <div class="widget-medium">
-          <div class="wmed-left">
-            <div class="widget-header-row">
-              <span class="widget-icon">⚡</span>
-              <span class="widget-app-name">ClaudeOps</span>
+
+      <div class="widget-stack">
+        <!-- Medium -->
+        <div class="w-med">
+          <div class="w-left">
+            <div class="w-app">
+              <img src="favicon-32.png" alt="" />
+              ClaudeOps
             </div>
-            <span class="widget-updated" style="font-size:8px;color:var(--muted)">just now</span>
+            <div class="w-ts">just now</div>
           </div>
-          <div class="wmed-divider"></div>
-          <div class="wmed-metric">
-            <span class="wmed-mlabel">5-Hour</span>
-            <span class="wmed-mpct pct-green">38%</span>
-            <div class="wmed-mtrack"><div class="wmed-mfill fill-green" style="width:38%"></div></div>
-            <span class="wmed-mreset">resets in 2h 14m</span>
+          <div class="w-div"></div>
+          <div class="w-metric">
+            <div class="wm-label">5-hour</div>
+            <div class="wm-val val-green">38%</div>
+            <div class="wm-track"><div class="wm-fill fill-green" style="width:38%"></div></div>
+            <div class="wm-reset">resets in 2h 14m</div>
           </div>
-          <div class="wmed-divider"></div>
-          <div class="wmed-metric">
-            <span class="wmed-mlabel">Weekly</span>
-            <span class="wmed-mpct pct-orange">81%</span>
-            <div class="wmed-mtrack"><div class="wmed-mfill fill-orange" style="width:81%"></div></div>
-            <span class="wmed-mreset">resets in 3d 7h</span>
+          <div class="w-div"></div>
+          <div class="w-metric">
+            <div class="wm-label">weekly</div>
+            <div class="wm-val val-orange">81%</div>
+            <div class="wm-track"><div class="wm-fill fill-orange" style="width:81%"></div></div>
+            <div class="wm-reset">resets in 3d 7h</div>
           </div>
         </div>
 
-        <!-- Small widget -->
-        <div class="widget-small">
-          <div class="widget-header-row">
-            <span class="widget-icon">⚡</span>
-            <span class="widget-app-name">ClaudeOps</span>
+        <!-- Small -->
+        <div class="w-sm">
+          <div class="w-app">
+            <img src="favicon-32.png" alt="" />
+            ClaudeOps
           </div>
-          <div class="widget-bars">
+          <div class="ws-bars">
             <div>
-              <div class="wbar-label-row">
-                <span class="wbar-label">5-Hour</span>
-                <span class="wbar-pct pct-green">38%</span>
+              <div class="ws-bar-label">
+                <span class="ws-lbl">5-hour</span>
+                <span class="ws-pct val-green">38%</span>
               </div>
-              <div class="wbar-track"><div class="wbar-fill fill-green" style="width:38%"></div></div>
+              <div class="ws-track"><div class="ws-fill fill-green" style="width:38%"></div></div>
             </div>
             <div>
-              <div class="wbar-label-row">
-                <span class="wbar-label">Weekly</span>
-                <span class="wbar-pct pct-orange">81%</span>
+              <div class="ws-bar-label">
+                <span class="ws-lbl">weekly</span>
+                <span class="ws-pct val-orange">81%</span>
               </div>
-              <div class="wbar-track"><div class="wbar-fill fill-orange" style="width:81%"></div></div>
+              <div class="ws-track"><div class="ws-fill fill-orange" style="width:81%"></div></div>
             </div>
           </div>
-          <span class="widget-updated">just now</span>
+          <div class="ws-ts">just now</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- CTA -->
-  <section class="cta-section">
-    <h2>Ready to stop<br><span class="gradient-text">flying blind?</span></h2>
+  <div class="cta-wrap">
+    <h2>Stop flying blind.<br /><span class="dim">Know your limits.</span></h2>
     <p>Free download. Takes 30 seconds to set up.</p>
-    <a href="#" class="btn-primary" style="font-size:17px; padding:16px 36px; display:inline-flex;">
-      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4.5 7L8 10.5 11.5 7M2 13h12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <a href="#" class="btn-primary-lg" style="font-size:15px; padding:12px 24px;">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4.5 7L8 10.5 11.5 7M2 13h12" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Download ClaudeOps
     </a>
-    <p style="margin-top:16px; font-size:13px; color:var(--muted)">macOS 15 Sequoia or later</p>
-  </section>
+    <p style="margin-top:14px; font-size:12px; color:var(--text-3); font-family:'Geist Mono',monospace;">macOS 15 Sequoia or later</p>
+  </div>
 
   <!-- Footer -->
   <footer>
-    <a href="#" class="nav-logo" style="text-decoration:none; color:var(--muted); font-weight:500; font-size:14px; display:flex; align-items:center; gap:8px;">
-      <span class="logo-icon" style="width:22px; height:22px; font-size:11px;">⚡</span>
+    <div class="footer-left">
+      <img src="favicon-32.png" alt="ClaudeOps" />
       ClaudeOps
-    </a>
-    <ul class="footer-links" style="list-style:none;">
+    </div>
+    <ul class="footer-links">
       <li><a href="#">Privacy</a></li>
       <li><a href="https://github.com" target="_blank">GitHub</a></li>
       <li><a href="mailto:">Contact</a></li>
     </ul>
-    <span>© 2026 ClaudeOps</span>
+    <div class="footer-right">© 2026 ClaudeOps</div>
   </footer>
 
 </body>
