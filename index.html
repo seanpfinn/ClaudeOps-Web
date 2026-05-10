@@ -7,6 +7,15 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png" />
   <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SHMF408X6E"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-SHMF408X6E');
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -804,6 +813,95 @@
       .feat-grid { grid-template-columns: 1fr; }
       .feat-cell { border-right: none !important; }
     }
+    /* ── Animations ── */
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes beamDrop {
+      from { opacity: 0; transform: translateX(-50%) scaleY(0); transform-origin: top; }
+      to   { opacity: 1; transform: translateX(-50%) scaleY(1); transform-origin: top; }
+    }
+
+    @keyframes expandWidth {
+      from { width: 0 !important; }
+    }
+
+    /* Hero entrance — staggered */
+    .hero-badge   { opacity: 0; animation: fadeUp 0.5s ease forwards; animation-delay: 0.05s; }
+    h1            { opacity: 0; animation: fadeUp 0.55s ease forwards; animation-delay: 0.15s; }
+    .hero-sub     { opacity: 0; animation: fadeUp 0.55s ease forwards; animation-delay: 0.25s; }
+    .hero-actions { opacity: 0; animation: fadeUp 0.55s ease forwards; animation-delay: 0.35s; }
+    .hero-meta    { opacity: 0; animation: fadeUp 0.4s ease forwards; animation-delay: 0.45s; }
+
+    .hero::after {
+      animation: beamDrop 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+      animation-delay: 0.1s;
+      opacity: 0;
+    }
+
+    .hero-beam {
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    /* Nav */
+    nav {
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    /* Scroll-reveal base state */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.55s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children inside a reveal parent */
+    .reveal-stagger > * {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay: 0s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 0.07s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay: 0.14s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay: 0.21s; }
+    .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay: 0.28s; }
+    .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay: 0.35s; }
+
+    /* Progress bars animate width */
+    .track-fill, .wm-fill, .ws-fill {
+      width: 0 !important;
+      transition: width 0.9s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .bars-visible .track-fill,
+    .bars-visible .wm-fill,
+    .bars-visible .ws-fill {
+      width: var(--target-w) !important;
+    }
+
+    /* Counting numbers */
+    .count-val { display: inline-block; }
+
   </style>
 </head>
 <body>
@@ -852,7 +950,7 @@
   </section>
 
   <!-- App preview -->
-  <div class="preview-wrap">
+  <div class="preview-wrap reveal">
     <div class="app-window">
       <div class="window-bar">
         <div class="tl tl-r"></div>
@@ -885,14 +983,14 @@
           <div class="stat-grid">
             <div class="stat-card">
               <div class="stat-label">5-hour usage</div>
-              <div class="stat-value val-green">38%</div>
-              <div class="track"><div class="track-fill fill-green" style="width:38%"></div></div>
+              <div class="stat-value val-green"><span class="count-val" data-count="38">38</span>%</div>
+              <div class="track"><div class="track-fill fill-green" style="--target-w:38%"></div></div>
               <div class="stat-sub">resets in 2h 14m</div>
             </div>
             <div class="stat-card">
               <div class="stat-label">7-day usage</div>
-              <div class="stat-value val-orange">81%</div>
-              <div class="track"><div class="track-fill fill-orange" style="width:81%"></div></div>
+              <div class="stat-value val-orange"><span class="count-val" data-count="81">81</span>%</div>
+              <div class="track"><div class="track-fill fill-orange" style="--target-w:81%"></div></div>
               <div class="stat-sub">resets in 3d 7h</div>
             </div>
           </div>
@@ -938,11 +1036,11 @@
 
   <!-- Features -->
   <div class="section" id="features">
-    <div class="section-eyebrow">Features</div>
-    <h2>Everything you need.<br /><span class="dim">Nothing you don't.</span></h2>
-    <p class="section-sub">Lightweight by design. ClaudeOps stays out of your way until you need it.</p>
+    <div class="section-eyebrow reveal">Features</div>
+    <h2 class="reveal">Everything you need.<br /><span class="dim">Nothing you don't.</span></h2>
+    <p class="section-sub reveal">Lightweight by design. ClaudeOps stays out of your way until you need it.</p>
 
-    <div class="feat-grid">
+    <div class="feat-grid reveal-stagger">
       <div class="feat-cell">
         <div class="feat-icon">📊</div>
         <div class="feat-title">Real-time gauges</div>
@@ -981,7 +1079,7 @@
   <!-- Widget -->
   <div class="widget-section" id="widget">
     <div class="widget-inner">
-      <div>
+      <div class="reveal">
         <div class="section-eyebrow">macOS Widget</div>
         <h2>Your usage,<br /><span class="dim">on your desktop.</span></h2>
         <p class="section-sub" style="margin-bottom:0">
@@ -990,7 +1088,7 @@
         </p>
       </div>
 
-      <div class="widget-stack">
+      <div class="widget-stack reveal">
         <!-- Medium -->
         <div class="w-med">
           <div class="w-left">
@@ -1003,15 +1101,15 @@
           <div class="w-div"></div>
           <div class="w-metric">
             <div class="wm-label">5-hour</div>
-            <div class="wm-val val-green">38%</div>
-            <div class="wm-track"><div class="wm-fill fill-green" style="width:38%"></div></div>
+            <div class="wm-val val-green"><span class="count-val" data-count="38">38</span>%</div>
+            <div class="wm-track"><div class="wm-fill fill-green" style="--target-w:38%"></div></div>
             <div class="wm-reset">resets in 2h 14m</div>
           </div>
           <div class="w-div"></div>
           <div class="w-metric">
             <div class="wm-label">weekly</div>
-            <div class="wm-val val-orange">81%</div>
-            <div class="wm-track"><div class="wm-fill fill-orange" style="width:81%"></div></div>
+            <div class="wm-val val-orange"><span class="count-val" data-count="81">81</span>%</div>
+            <div class="wm-track"><div class="wm-fill fill-orange" style="--target-w:81%"></div></div>
             <div class="wm-reset">resets in 3d 7h</div>
           </div>
         </div>
@@ -1028,14 +1126,14 @@
                 <span class="ws-lbl">5-hour</span>
                 <span class="ws-pct val-green">38%</span>
               </div>
-              <div class="ws-track"><div class="ws-fill fill-green" style="width:38%"></div></div>
+              <div class="ws-track"><div class="ws-fill fill-green" style="--target-w:38%"></div></div>
             </div>
             <div>
               <div class="ws-bar-label">
                 <span class="ws-lbl">weekly</span>
                 <span class="ws-pct val-orange">81%</span>
               </div>
-              <div class="ws-track"><div class="ws-fill fill-orange" style="width:81%"></div></div>
+              <div class="ws-track"><div class="ws-fill fill-orange" style="--target-w:81%"></div></div>
             </div>
           </div>
           <div class="ws-ts">just now</div>
@@ -1045,7 +1143,7 @@
   </div>
 
   <!-- CTA -->
-  <div class="cta-wrap">
+  <div class="cta-wrap reveal">
     <h2>Stop flying blind.<br /><span class="dim">Know your limits.</span></h2>
     <p>Free download. Takes 30 seconds to set up.</p>
     <a href="#" class="btn-primary-lg" style="font-size:15px; padding:12px 24px;">
@@ -1069,5 +1167,92 @@
     <div class="footer-right">© 2026 ClaudeOps</div>
   </footer>
 
+  <script>
+    // Intersection Observer for scroll reveals
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // Animate progress bars when their container becomes visible
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const container = entry.target;
+        container.classList.add('bars-visible');
+        // Apply the CSS var as actual width
+        container.querySelectorAll('.track-fill, .wm-fill, .ws-fill').forEach(bar => {
+          const target = bar.style.getPropertyValue('--target-w');
+          if (target) bar.style.width = target;
+        });
+        barObserver.unobserve(container);
+      });
+    }, { threshold: 0.3 });
+
+    // Observe the app window and widget stack
+    document.querySelectorAll('.app-window, .widget-stack').forEach(el => {
+      barObserver.observe(el);
+    });
+
+    // Count-up animation
+    function animateCount(el) {
+      const target = parseInt(el.dataset.count, 10);
+      const duration = 900;
+      const start = performance.now();
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out expo
+        const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        animateCount(entry.target);
+        countObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.count-val').forEach(el => {
+      el.textContent = '0';
+      countObserver.observe(el);
+    });
+
+    // SVG chart dots fade in sequentially when the chart enters view
+    const chartObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const circles = entry.target.querySelectorAll('circle');
+        circles.forEach((c, i) => {
+          c.style.opacity = '0';
+          c.style.transition = `opacity 0.3s ease ${i * 40}ms`;
+          setTimeout(() => { c.style.opacity = '1'; }, 10);
+        });
+        const path = entry.target.querySelector('path');
+        if (path) {
+          const len = path.getTotalLength ? path.getTotalLength() : 600;
+          path.style.strokeDasharray = len;
+          path.style.strokeDashoffset = len;
+          path.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1) 0.2s';
+          setTimeout(() => { path.style.strokeDashoffset = '0'; }, 10);
+        }
+        chartObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.4 });
+
+    document.querySelectorAll('.chart-area').forEach(el => chartObserver.observe(el));
+  </script>
 </body>
 </html>
